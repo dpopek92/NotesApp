@@ -21,7 +21,6 @@ describe('App (e2e)', () => {
     }).compile();
 
     app = module.createNestApplication();
-    app.setGlobalPrefix('api');
     app.useGlobalPipes(
       new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
     );
@@ -39,16 +38,16 @@ describe('App (e2e)', () => {
     const randomMongoId = new Types.ObjectId();
     let createdNoteId = '';
 
-    describe('POST /api/notes', () => {
+    describe('POST /notes', () => {
       it('should return 400 when no data was send', async () => {
-        const res = await request(app.getHttpServer()).post('/api/notes');
+        const res = await request(app.getHttpServer()).post('/notes');
 
         expect(res.statusCode).toEqual(400);
         expect(res.body.message).toBeInstanceOf(Array);
       });
       it('should return 400 when data is not correct', async () => {
         const res = await request(app.getHttpServer())
-          .post('/api/notes')
+          .post('/notes')
           .send({ title: '', content: '' });
 
         expect(res.statusCode).toEqual(400);
@@ -56,7 +55,7 @@ describe('App (e2e)', () => {
       });
       it('should return 201 when data is correct', async () => {
         const res = await request(app.getHttpServer())
-          .post('/api/notes')
+          .post('/notes')
           .send({ title: 'title', content: 'content' });
 
         createdNoteId = res.body._id;
@@ -69,16 +68,16 @@ describe('App (e2e)', () => {
       });
     });
 
-    describe('GET /api/notes', () => {
+    describe('GET /notes', () => {
       it('should return 400 when no query was send', async () => {
-        const res = await request(app.getHttpServer()).get('/api/notes');
+        const res = await request(app.getHttpServer()).get('/notes');
 
         expect(res.statusCode).toEqual(400);
         expect(res.body.message).toBeInstanceOf(Array);
       });
       it('should return 400 when query is not correct', async () => {
         const res = await request(app.getHttpServer())
-          .get('/api/notes')
+          .get('/notes')
           .query({ itemsPerPage: -1, pageNumber: -1 });
 
         expect(res.statusCode).toEqual(400);
@@ -86,7 +85,7 @@ describe('App (e2e)', () => {
       });
       it('should return 200 when query is correct', async () => {
         const res = await request(app.getHttpServer())
-          .get('/api/notes')
+          .get('/notes')
           .query({ itemsPerPage: 5, pageNumber: 1, title: 'title' });
 
         expect(res.statusCode).toEqual(200);
@@ -100,22 +99,22 @@ describe('App (e2e)', () => {
       });
     });
 
-    describe('GET /api/notes/:id', () => {
+    describe('GET /notes/:id', () => {
       it('should return 400 when id is no correct', async () => {
-        const res = await request(app.getHttpServer()).get(`/api/notes/123`);
+        const res = await request(app.getHttpServer()).get(`/notes/123`);
 
         expect(res.statusCode).toEqual(400);
       });
       it('should return 404 when note not exists', async () => {
         const res = await request(app.getHttpServer()).get(
-          `/api/notes/${randomMongoId}`,
+          `/notes/${randomMongoId}`,
         );
 
         expect(res.statusCode).toEqual(404);
       });
       it('should return 200 when note exists', async () => {
         const res = await request(app.getHttpServer()).get(
-          `/api/notes/${createdNoteId}`,
+          `/notes/${createdNoteId}`,
         );
 
         expect(res.statusCode).toEqual(200);
@@ -126,15 +125,15 @@ describe('App (e2e)', () => {
       });
     });
 
-    describe('PUT /api/notes/:id', () => {
+    describe('PUT /notes/:id', () => {
       it('should return 400 when id is no correct', async () => {
-        const res = await request(app.getHttpServer()).put(`/api/notes/123`);
+        const res = await request(app.getHttpServer()).put(`/notes/123`);
 
         expect(res.statusCode).toEqual(400);
       });
       it('should return 400 when data no data was send', async () => {
         const res = await request(app.getHttpServer()).put(
-          `/api/notes/${createdNoteId}`,
+          `/notes/${createdNoteId}`,
         );
 
         expect(res.statusCode).toEqual(400);
@@ -142,7 +141,7 @@ describe('App (e2e)', () => {
       });
       it('should return 400 when wrong data data was send', async () => {
         const res = await request(app.getHttpServer())
-          .put(`/api/notes/${createdNoteId}`)
+          .put(`/notes/${createdNoteId}`)
           .send({ title: '', content: '' });
 
         expect(res.statusCode).toEqual(400);
@@ -150,7 +149,7 @@ describe('App (e2e)', () => {
       });
       it('should return 200 when id & data is correct', async () => {
         const res = await request(app.getHttpServer())
-          .put(`/api/notes/${createdNoteId}`)
+          .put(`/notes/${createdNoteId}`)
           .send({ title: 'new-title', content: 'new-content' });
 
         expect(res.statusCode).toEqual(200);
@@ -161,7 +160,7 @@ describe('App (e2e)', () => {
       });
       it('should return 200 when data is correct & create new note', async () => {
         const res = await request(app.getHttpServer())
-          .put(`/api/notes/${randomMongoId}`)
+          .put(`/notes/${randomMongoId}`)
           .send({ title: 'title2', content: 'content2' });
 
         expect(res.statusCode).toEqual(200);
@@ -172,23 +171,21 @@ describe('App (e2e)', () => {
       });
     });
 
-    describe('DELETE /api/notes/:id', () => {
+    describe('DELETE /notes/:id', () => {
       it('should return 400 when id is no correct', async () => {
-        const res = await request(app.getHttpServer()).delete(`/api/notes/123`);
+        const res = await request(app.getHttpServer()).delete(`/notes/123`);
 
         expect(res.statusCode).toEqual(400);
       });
       it('should return 404 when there is no note to remove', async () => {
         const id = new Types.ObjectId();
-        const res = await request(app.getHttpServer()).delete(
-          `/api/notes/${id}`,
-        );
+        const res = await request(app.getHttpServer()).delete(`/notes/${id}`);
 
         expect(res.statusCode).toEqual(404);
       });
       it('should return 200 when there note was removed', async () => {
         const res = await request(app.getHttpServer()).delete(
-          `/api/notes/${createdNoteId}`,
+          `/notes/${createdNoteId}`,
         );
 
         expect(res.statusCode).toEqual(200);
