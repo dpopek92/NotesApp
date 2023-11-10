@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, FlattenMaps, Model } from 'mongoose';
-import { ISearchResult } from 'src/common/interfaces/search-result.inteface';
+import { ISearchResult } from '../../common/interfaces/search-result.inteface';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { SearchNotesParamsDto } from './dto/search-notes-dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
