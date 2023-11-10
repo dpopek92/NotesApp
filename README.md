@@ -5,10 +5,10 @@
 ```bash
 # from main dir
 
-# installation dependencies for frontend & backend
+# installing dependencies for frontend & backend
 $ npm run postinstall
 
-# installation dependencies for running the project
+# installing dependencies to run the project
 $ npm i
 ```
 
