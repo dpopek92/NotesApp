@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
+import { HttpExceptionFilter } from '../common/filters/http-exception.filter';
 import { NotesModule } from './notes/notes.module';
 
 @Module({

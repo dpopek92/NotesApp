@@ -56,9 +56,6 @@ export class NotesService {
   }
 
   async update(id: string, updateNoteDto: UpdateNoteDto) {
-    const isExists = await this.notesModel.exists({ _id: id });
-    if (!isExists) return this.create(updateNoteDto);
-
     return this.notesModel
       .findByIdAndUpdate(id, updateNoteDto, {
         upsert: true,
