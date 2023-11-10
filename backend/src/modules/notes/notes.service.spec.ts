@@ -137,11 +137,8 @@ describe('NotesService', () => {
   });
   describe('update', () => {
     it('should update note', async () => {
-      mockExists.mockReturnValueOnce(true);
       const res = await service.update(noteId, noteDto);
 
-      expect(mockExists).toHaveBeenCalled();
-      expect(mockExists).toHaveBeenCalledTimes(1);
       expect(mockFindByIdAndUpdate).toHaveBeenCalled();
       expect(mockFindByIdAndUpdate).toHaveBeenCalledTimes(1);
       expect(mockFindByIdAndUpdate).toHaveBeenCalledWith(
@@ -153,23 +150,6 @@ describe('NotesService', () => {
         { upsert: true, new: true },
       );
       expect(mockFind).not.toHaveBeenCalledWith('');
-      expect(res).toEqual({ _id: '123', title: 'title', content: 'content' });
-    });
-    it('should create new note', async () => {
-      mockExists.mockReturnValueOnce(false);
-      const res = await service.update(noteId, noteDto);
-
-      expect(mockExists).toHaveBeenCalled();
-      expect(mockExists).toHaveBeenCalledTimes(1);
-      expect(mockFindByIdAndUpdate).not.toHaveBeenCalled();
-      expect(mockFindByIdAndUpdate).toHaveBeenCalledTimes(0);
-      expect(mockCreate).toHaveBeenCalled();
-      expect(mockCreate).toHaveBeenCalledTimes(1);
-      expect(mockCreate).toHaveBeenCalledWith({
-        title: 'title',
-        content: 'content',
-      });
-
       expect(res).toEqual({ _id: '123', title: 'title', content: 'content' });
     });
     it('should remove note', async () => {

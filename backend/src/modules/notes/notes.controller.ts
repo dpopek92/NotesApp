@@ -12,7 +12,7 @@ import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { SearchNotesParamsDto } from './dto/search-notes-dto';
-import { MongoIdParamDto } from '../../common/dto/mongoId-param.dto';
+import { ValidateMongoIdParam } from '../../common/pipes/validate-mongoid-param.pipe';
 
 @Controller('notes')
 export class NotesController {
@@ -29,20 +29,20 @@ export class NotesController {
   }
 
   @Get(':id')
-  findOne(@Param() params: MongoIdParamDto) {
-    return this.notesService.findOne(params.id);
+  findOne(@Param('id', ValidateMongoIdParam) id: string) {
+    return this.notesService.findOne(id);
   }
 
   @Put(':id')
   update(
-    @Param() params: MongoIdParamDto,
+    @Param('id', ValidateMongoIdParam) id: string,
     @Body() updateNoteDto: UpdateNoteDto,
   ) {
-    return this.notesService.update(params.id, updateNoteDto);
+    return this.notesService.update(id, updateNoteDto);
   }
 
   @Delete(':id')
-  remove(@Param() params: MongoIdParamDto) {
-    return this.notesService.remove(params.id);
+  remove(@Param('id', ValidateMongoIdParam) id: string) {
+    return this.notesService.remove(id);
   }
 }

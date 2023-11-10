@@ -32,6 +32,7 @@ describe('App (e2e)', () => {
     await mongoConnection.dropDatabase();
     await mongoConnection.close();
     await mongod.stop();
+    await app.close();
   });
 
   describe('Notes', () => {
@@ -104,7 +105,6 @@ describe('App (e2e)', () => {
         const res = await request(app.getHttpServer()).get(`/api/notes/123`);
 
         expect(res.statusCode).toEqual(400);
-        expect(res.body.message).toBeInstanceOf(Array);
       });
       it('should return 404 when note not exists', async () => {
         const res = await request(app.getHttpServer()).get(
@@ -131,7 +131,6 @@ describe('App (e2e)', () => {
         const res = await request(app.getHttpServer()).put(`/api/notes/123`);
 
         expect(res.statusCode).toEqual(400);
-        expect(res.body.message).toBeInstanceOf(Array);
       });
       it('should return 400 when data no data was send', async () => {
         const res = await request(app.getHttpServer()).put(
@@ -178,7 +177,6 @@ describe('App (e2e)', () => {
         const res = await request(app.getHttpServer()).delete(`/api/notes/123`);
 
         expect(res.statusCode).toEqual(400);
-        expect(res.body.message).toBeInstanceOf(Array);
       });
       it('should return 404 when there is no note to remove', async () => {
         const id = new Types.ObjectId();

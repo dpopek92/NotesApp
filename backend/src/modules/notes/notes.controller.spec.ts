@@ -3,6 +3,7 @@ import { CreateNoteDto } from './dto/create-note.dto';
 import { SearchNotesParamsDto } from './dto/search-notes-dto';
 import { NotesController } from './notes.controller';
 import { NotesService } from './notes.service';
+import { Types } from 'mongoose';
 
 const mockCreate = jest.fn();
 const mockFindAll = jest.fn();
@@ -26,7 +27,7 @@ const noteSearchParams: SearchNotesParamsDto = {
   pageNumber: 1,
   itemsPerPage: 1,
 };
-const noteId = '123';
+const noteId = new Types.ObjectId().toString();
 
 describe('NotesController', () => {
   let controller: NotesController;
@@ -74,7 +75,7 @@ describe('NotesController', () => {
       controller.findOne(noteId);
       expect(mockFindOne).toHaveBeenCalled();
       expect(mockFindOne).toHaveBeenCalledTimes(1);
-      expect(mockFindOne).toHaveBeenCalledWith('123');
+      expect(mockFindOne).toHaveBeenCalledWith(noteId);
     });
   });
   describe('update note', () => {
@@ -82,7 +83,7 @@ describe('NotesController', () => {
       controller.update(noteId, noteDto);
       expect(mockUpdate).toHaveBeenCalled();
       expect(mockUpdate).toHaveBeenCalledTimes(1);
-      expect(mockUpdate).toHaveBeenCalledWith('123', {
+      expect(mockUpdate).toHaveBeenCalledWith(noteId, {
         title: 'title',
         content: 'content',
       });
@@ -93,7 +94,7 @@ describe('NotesController', () => {
       controller.remove(noteId);
       expect(mockRemove).toHaveBeenCalled();
       expect(mockRemove).toHaveBeenCalledTimes(1);
-      expect(mockRemove).toHaveBeenCalledWith('123');
+      expect(mockRemove).toHaveBeenCalledWith(noteId);
     });
   });
 });
