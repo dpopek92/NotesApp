@@ -22,7 +22,6 @@ async function bootstrap() {
     .setTitle('GMI notes app')
     .setDescription('GMI notes app API description')
     .build();
-
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
