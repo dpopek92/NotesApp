@@ -18,7 +18,7 @@ $ npm i
 # from main dir
 
 # run project in dev mode
-$ npm run dev
+$ npm run start
 ```
 
 ## Tests
