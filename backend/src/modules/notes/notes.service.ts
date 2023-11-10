@@ -56,16 +56,16 @@ export class NotesService {
   }
 
   async update(id: string, updateNoteDto: UpdateNoteDto) {
-    const updatedNote = await this.notesModel.findByIdAndUpdate(
-      id,
-      updateNoteDto,
-      {
+    const isExists = await this.notesModel.exists({ _id: id });
+    if (!isExists) return this.create(updateNoteDto);
+
+    return this.notesModel
+      .findByIdAndUpdate(id, updateNoteDto, {
         upsert: true,
         new: true,
-      },
-    );
-
-    return updatedNote;
+      })
+      .lean()
+      .exec();
   }
 
   async remove(id: string) {
