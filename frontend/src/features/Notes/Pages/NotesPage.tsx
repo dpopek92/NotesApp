@@ -1,12 +1,15 @@
+import ConfirmationModal from "common/components/ConfirmationModal/Confirmation.modal";
 import Empty from "common/components/Empty/Empty";
 import LoadingSpinner from "common/components/LoadingSpinner/LoadingSpinner";
 import PageHeader from "common/components/PageHeader/PageHeader";
 import { useControledDebounce } from "common/hooks/useControledDebounce";
 import usePagination from "common/hooks/usePagination";
-import React, { useEffect } from "react";
-import { Alert, Button, Container, Form, Stack } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Alert, Button, Container, Form } from "react-bootstrap";
 import NotesList from "../components/NotesList/NotesList";
+import NoteContext from "../context/noteContext.context";
 import useNotes from "../hooks/useNotes";
+import { INote } from "../interfaces/Notes.interface";
 
 const NotesPage = () => {
   const { itemsPerPage, pageNumber, setTotalItems, Pagination } = usePagination(
@@ -19,7 +22,6 @@ const NotesPage = () => {
     totalItems,
     isLoading,
     isError,
-    refetchNotes,
     redirectToNote,
     updateNote,
     removeNote,
@@ -30,6 +32,14 @@ const NotesPage = () => {
       setTotalItems(totalItems);
     }
   }, [totalItems]);
+
+  const [noteToRemove, setNoteToRemove] = useState<string | null>(null);
+  const [noteToUpdate, setNoteToUpdate] = useState<INote | null>(null);
+
+  const handleRemove = async (id: string) => {
+    await removeNote(id);
+    setNoteToRemove(null);
+  };
 
   if (isError)
     return (
@@ -58,12 +68,23 @@ const NotesPage = () => {
       {!notes?.length ? (
         <Empty />
       ) : (
-        <>
+        <NoteContext.Provider
+          value={{ setToRemove: setNoteToRemove, setToUpdate: setNoteToUpdate }}
+        >
           <NotesList notes={notes} />
           <div className="d-flex justify-content-end mt-3">
             <Pagination />
           </div>
-        </>
+        </NoteContext.Provider>
+      )}
+
+      {/* NOTE MODALS */}
+      {!!noteToRemove && (
+        <ConfirmationModal
+          onOk={() => handleRemove(noteToRemove)}
+          closeModal={() => setNoteToRemove(null)}
+          confirmationText="deleting a note is irreversible"
+        />
       )}
     </Container>
   );
