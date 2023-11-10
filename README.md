@@ -24,10 +24,16 @@ $ npm run dev
 ## Tests
 
 ```bash
-# unit tests
+# from main dir
+
+# run all tests for frontend & backend
 $ npm run test
 
-# e2e tests
+# run frontend tests: from ./frontend dir
+$ npm run test
+
+# run backend tests: from ./backend dir
+$ npm run test
 $ npm run test:e2e
 ```
 
