@@ -18,21 +18,19 @@ $ npm i
 # from main dir
 
 # run project in dev mode
-$ npm run dev
+$ npm run start
 ```
 
 ## Tests
 
 ```bash
-# from main dir
-
-# run all tests for frontend & backend
+# run all tests for frontend & backend - from main dir
 $ npm run test
 
-# run frontend tests: from ./frontend dir
+# run frontend tests - from ./frontend dir
 $ npm run test
 
-# run backend tests: from ./backend dir
+# run backend tests - from ./backend dir
 $ npm run test
 $ npm run test:e2e
 ```
