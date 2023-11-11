@@ -20,11 +20,11 @@ const useNote = (id?: string) => {
 
   const { mutateAsync: updateNote, isPending: isUpdating } = useMutation({
     mutationKey: ["update-note"],
-    mutationFn: (body: IUpdateNote) => {
-      return notesApi.update(id, body);
+    mutationFn: ({ title, content }: IUpdateNote) => {
+      return notesApi.update(id, { title, content });
     },
     onSuccess: async () => {
-      await refetch();
+      navigate(`/notes/${id}`);
     },
     onError: () => {
       addToast("Something went wrong", { appearance: "error" });

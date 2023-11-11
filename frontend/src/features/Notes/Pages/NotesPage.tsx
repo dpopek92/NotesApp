@@ -62,7 +62,7 @@ const NotesPage = () => {
           </Button>,
         ]}
       />
-      {!notes?.length ? (
+      {!notes?.length && !isLoading ? (
         <Empty />
       ) : (
         <>
