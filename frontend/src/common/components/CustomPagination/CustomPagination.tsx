@@ -25,11 +25,14 @@ const CustomPagination: React.FC<IProps> = ({
 }) => {
   const [pageItems, setPageItems] = useState<number[]>([1]);
 
-  useEffect(() => {
-    const newPageItems = [pageNumber - 1, pageNumber, pageNumber + 1].filter(
+  const generatePageItems = () => {
+    return [pageNumber - 1, pageNumber, pageNumber + 1].filter(
       (item) => item > 0 && item <= totalPages
     );
-    setPageItems(newPageItems);
+  };
+
+  useEffect(() => {
+    setPageItems(generatePageItems());
   }, [pageNumber, totalPages]);
 
   return (

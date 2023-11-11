@@ -2,7 +2,7 @@ import CustomPagination from "common/components/CustomPagination/CustomPaginatio
 import Empty from "common/components/Empty/Empty";
 import LoadingSpinner from "common/components/LoadingSpinner/LoadingSpinner";
 import PageHeader from "common/components/PageHeader/PageHeader";
-import { useControledDebounce } from "common/hooks/useControledDebounce";
+import { useControlledDebounce } from "common/hooks/useControlledDebounce";
 import usePagination from "common/hooks/usePagination";
 import { useEffect } from "react";
 import { Alert, Button, Container, Form } from "react-bootstrap";
@@ -23,7 +23,7 @@ const NotesPage = () => {
   } = usePagination({ pageNumber: 1, itemsPerPage: 5 });
 
   const { value, debouncedValue, handleDebouncedValue } =
-    useControledDebounce();
+    useControlledDebounce();
   const { notes, totalItems, isLoading, isError, redirectToNote } = useNotes({
     itemsPerPage,
     pageNumber,
@@ -56,7 +56,6 @@ const NotesPage = () => {
             onChange={(e) => handleDebouncedValue(e.target.value)}
             value={value}
             placeholder="Title..."
-            id="title-filter-id"
           />,
           <Button
             key={1}
@@ -69,29 +68,27 @@ const NotesPage = () => {
           </Button>,
         ]}
       />
+
       {!notes?.length && !isLoading ? (
         <Empty />
       ) : (
-        <>
-          <NoteContext.Provider
-            value={{
-              goToNote: redirectToNote,
-            }}
-          >
-            <NotesList notes={notes} />
-          </NoteContext.Provider>
-
-          <div className="d-flex justify-content-end mt-3">
-            <CustomPagination
-              pageNumber={pageNumber}
-              itemsPerPage={itemsPerPage}
-              totalPages={totalPages}
-              handleItemsPerPage={handleItemsPerPage}
-              handlePagination={handlePagination}
-            />
-          </div>
-        </>
+        <NoteContext.Provider
+          value={{
+            goToNote: redirectToNote,
+          }}
+        >
+          <NotesList notes={notes} />
+        </NoteContext.Provider>
       )}
+      <div className="d-flex justify-content-end mt-3">
+        <CustomPagination
+          pageNumber={pageNumber}
+          itemsPerPage={itemsPerPage}
+          totalPages={totalPages}
+          handleItemsPerPage={handleItemsPerPage}
+          handlePagination={handlePagination}
+        />
+      </div>
     </Container>
   );
 };

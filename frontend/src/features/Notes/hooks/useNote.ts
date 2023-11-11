@@ -3,21 +3,27 @@ import { useNavigate } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { IUpdateNote, notesApi } from "../api/notes.api";
 
+// Custom hook for managing note data
 const useNote = (id?: string) => {
   const navigate = useNavigate();
   const { addToast } = useToasts();
 
+  // Fetch the note data
   const {
     data,
     isLoading: isNoteLoading,
     isError,
-    refetch,
+    refetch: refetchNote,
   } = useQuery({
     queryKey: ["get-note", id],
     queryFn: () => notesApi.get(id),
     enabled: !!id,
   });
 
+  const handleError = () =>
+    addToast("Something went wrong", { appearance: "error" });
+
+  // Mutation for updating a note
   const { mutateAsync: updateNote, isPending: isUpdating } = useMutation({
     mutationKey: ["update-note"],
     mutationFn: ({ title, content }: IUpdateNote) => {
@@ -27,10 +33,11 @@ const useNote = (id?: string) => {
       navigate(`/notes/${id}`);
     },
     onError: () => {
-      addToast("Something went wrong", { appearance: "error" });
+      handleError();
     },
   });
 
+  // Mutation for removing a note
   const { mutateAsync: removeNote, isPending: isRemoving } = useMutation({
     mutationKey: ["remove-note"],
     mutationFn: () => {
@@ -40,13 +47,12 @@ const useNote = (id?: string) => {
       navigate("/notes");
     },
     onError: () => {
-      addToast("Something went wrong", { appearance: "error" });
+      handleError();
     },
   });
 
   const note = data?.data;
   const isLoading = isNoteLoading || isUpdating || isRemoving;
-  const refetchNote = refetch;
   const redirectToEditNote = () => navigate(`/notes/${id}/edit`);
 
   return {

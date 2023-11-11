@@ -11,6 +11,7 @@ const NewNotePage = () => {
   const navigate = useNavigate();
   const { addToast } = useToasts();
 
+  // Mutation for creating a new note
   const { mutateAsync: createNote, isPending: isCreating } = useMutation({
     mutationKey: ["create-note"],
     mutationFn: (body: INewNote) => {

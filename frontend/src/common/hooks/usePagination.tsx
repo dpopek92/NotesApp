@@ -3,19 +3,23 @@ import { toNumber } from "lodash";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const usePagination = (init: ISearchParams) => {
-  let [searchParams, setSearchParams] = useSearchParams();
+// Custom hook to handle pagination logic holding data in the url
+const usePagination = (initialParams: ISearchParams) => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const pageNumber = searchParams.get("pageNumber")
-    ? toNumber(searchParams.get("pageNumber"))
-    : init.pageNumber
-    ? init.pageNumber
-    : 1;
-  const itemsPerPage = searchParams.get("itemsPerPage")
-    ? toNumber(searchParams.get("itemsPerPage"))
-    : init.itemsPerPage
-    ? init.itemsPerPage
-    : 10;
+  const getQueryParamAsNumber = (paramName: string, defaultValue: number) => {
+    const value = searchParams.get(paramName);
+    return value ? toNumber(value) : defaultValue;
+  };
+
+  const pageNumber = getQueryParamAsNumber(
+    "pageNumber",
+    initialParams.pageNumber || 1
+  );
+  const itemsPerPage = getQueryParamAsNumber(
+    "itemsPerPage",
+    initialParams.itemsPerPage || 10
+  );
 
   const [totalItems, setTotalItems] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -38,14 +42,20 @@ const usePagination = (init: ISearchParams) => {
     }
   }, [pageNumber, totalPages]);
 
-  const handlePagination = (pageNumber: number) => {
+  const updateSearchParams = (pageNumber: number, itemsPerPage?: number) => {
     searchParams.set("pageNumber", pageNumber.toString());
+    if (itemsPerPage !== undefined) {
+      searchParams.set("itemsPerPage", itemsPerPage.toString());
+    }
     setSearchParams(searchParams);
   };
+
+  const handlePagination = (pageNumber: number) => {
+    updateSearchParams(pageNumber);
+  };
+
   const handleItemsPerPage = (itemsPerPage: number) => {
-    searchParams.set("pageNumber", "1");
-    searchParams.set("itemsPerPage", itemsPerPage.toString());
-    setSearchParams(searchParams);
+    updateSearchParams(1, itemsPerPage);
   };
 
   return {

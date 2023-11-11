@@ -6,7 +6,8 @@ const debounceControledInput = debounce(
   700
 );
 
-export const useControledDebounce = () => {
+// Custom React hook for handling debounced controlled input
+export const useControlledDebounce = () => {
   const [value, setValue] = useState<string>("");
   const [debouncedValue, setDebouncedValue] = useState<string>("");
 

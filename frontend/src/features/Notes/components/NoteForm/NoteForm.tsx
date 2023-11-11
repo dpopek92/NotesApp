@@ -41,6 +41,7 @@ const NoteForm: React.FC<IProps> = ({ initData, handleSubmit }) => {
       id="note-form-id"
       data-testid="note-form-test-id"
     >
+      {/* TITLE INPUT */}
       <Form.Group controlId="note-form-title" className="mb-3">
         <Form.Label>Title</Form.Label>
         <Form.Control
@@ -59,6 +60,7 @@ const NoteForm: React.FC<IProps> = ({ initData, handleSubmit }) => {
         </div>
       </Form.Group>
 
+      {/* CONTENT TEXTAREA */}
       <Form.Group controlId="note-form-content">
         <Form.Label>Content</Form.Label>
         <Form.Control

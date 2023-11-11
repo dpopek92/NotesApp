@@ -24,7 +24,7 @@ const PageHeader: React.FC<IProps> = ({ title, subtitle = "", menu = [] }) => {
     <div data-testid="page-header-test-id">
       <Wrapper>
         <h1>{title}</h1>
-        <Stack direction="horizontal">{menu.map((item) => item)}</Stack>
+        <Stack direction="horizontal">{menu}</Stack>
       </Wrapper>
       <H5>{subtitle}</H5>
     </div>

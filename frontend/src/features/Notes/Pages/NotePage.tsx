@@ -30,6 +30,7 @@ const NotePage = () => {
   return (
     <Container className="mt-3">
       {isLoading && <LoadingSpinner />}
+
       <PageHeader
         title={note?.title || "Note"}
         subtitle={note ? dayjs(note.createdAt).format("DD.MM.YYYY, HH:mm") : ""}
@@ -55,7 +56,7 @@ const NotePage = () => {
 
       <div className="p-3">{note?.content}</div>
 
-      {/* NOTE MODALS */}
+      {/* MODALS */}
       {confirmRemoveNoteModal && (
         <ConfirmationModal
           onOk={handleRemoveNote}
