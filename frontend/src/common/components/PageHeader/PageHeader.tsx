@@ -9,21 +9,25 @@ const Wrapper = styled.div`
     margin-left: 5px;
   }
 `;
-const H1 = styled.h1`
-  color: black;
+const H5 = styled.h5`
+  color: gray;
 `;
 
 interface IProps {
   title: string;
+  subtitle?: string;
   menu?: ReactNode[];
 }
 
-const PageHeader: React.FC<IProps> = ({ title, menu = [] }) => {
+const PageHeader: React.FC<IProps> = ({ title, subtitle = "", menu = [] }) => {
   return (
-    <Wrapper>
-      <H1>{title}</H1>
-      <Stack direction="horizontal">{menu.map((item) => item)}</Stack>
-    </Wrapper>
+    <div>
+      <Wrapper>
+        <h1>{title}</h1>
+        <Stack direction="horizontal">{menu.map((item) => item)}</Stack>
+      </Wrapper>
+      <H5>{subtitle}</H5>
+    </div>
   );
 };
 

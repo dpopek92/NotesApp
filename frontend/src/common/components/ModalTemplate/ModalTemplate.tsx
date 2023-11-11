@@ -3,9 +3,9 @@ import { Button, Modal, ModalProps } from "react-bootstrap";
 
 export interface IModalTemplateProps {
   closeModal: () => void;
-  onOk: () => void;
 }
 interface IProps extends ModalProps, IModalTemplateProps {
+  onOk: () => void;
   title: string;
   children: ReactNode;
 }

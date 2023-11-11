@@ -20,16 +20,19 @@ export const notesApi = {
   ): Promise<AxiosResponse<ISearchResult<INote>>> => {
     return axios.get(`/notes`, { params });
   },
-  get: async (id: string): Promise<AxiosResponse<INote>> => {
+  get: async (id?: string): Promise<AxiosResponse<INote>> => {
+    if (!id) throw new Error(`Wrong id param: ${id}`);
     return axios.get(`/notes/${id}`);
   },
   update: async (
-    id: string,
+    id: string | undefined,
     data: IUpdateNote
   ): Promise<AxiosResponse<INote>> => {
-    return axios.put(`/notes/${id}`);
+    if (!id) throw new Error(`Wrong id param: ${id}`);
+    return axios.put(`/notes/${id}`, data);
   },
-  remove: async (id: string): Promise<AxiosResponse<boolean>> => {
+  remove: async (id?: string): Promise<AxiosResponse<boolean>> => {
+    if (!id) throw new Error(`Wrong id param: ${id}`);
     return axios.delete(`/notes/${id}`);
   },
 };

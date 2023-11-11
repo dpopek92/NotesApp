@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const Note: React.FC<IProps> = ({ note }) => {
-  const { setToRemove, setToUpdate } = useNoteContext();
+  const { goToNote } = useNoteContext();
 
   return (
     <Card>
@@ -31,17 +31,10 @@ const Note: React.FC<IProps> = ({ note }) => {
           <ButtonGroup>
             <Button
               size="sm"
-              variant="outline-primary"
-              onClick={() => setToUpdate(note)}
+              variant="outline-success"
+              onClick={() => goToNote(note._id)}
             >
-              Update
-            </Button>
-            <Button
-              size="sm"
-              variant="outline-danger"
-              onClick={() => setToRemove(note._id)}
-            >
-              Remove
+              Show details
             </Button>
           </ButtonGroup>
         </div>

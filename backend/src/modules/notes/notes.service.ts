@@ -69,6 +69,7 @@ export class NotesService {
     const isExists = await this.notesModel.exists({ _id: id });
     if (!isExists) throw new NotFoundException('There is no note to remove');
 
-    return this.notesModel.findByIdAndDelete(id);
+    await this.notesModel.findByIdAndDelete(id);
+    return true;
   }
 }
