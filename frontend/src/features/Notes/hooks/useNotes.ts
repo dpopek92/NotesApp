@@ -15,19 +15,6 @@ const useNotes = (searchQuery: ISearchNotes) => {
     queryFn: () => notesApi.getAll(searchQuery),
   });
 
-  // const { mutateAsync: createNote, isPending: isCreating } = useMutation({
-  //   mutationKey: ["create-note"],
-  //   mutationFn: (body: INewNote) => {
-  //     return notesApi.create(body);
-  //   },
-  //   onSuccess: async () => {
-  //     await refetch();
-  //   },
-  //   onError: () => {
-  //     addToast("Something went wrong", { appearance: "error" });
-  //   },
-  // });
-
   const notes = data?.data.content;
   const totalItems = data?.data.totalItems;
   const isLoading = isNotesLoading;

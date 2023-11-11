@@ -37,7 +37,7 @@ const useNote = (id?: string) => {
       return notesApi.remove(id);
     },
     onSuccess: async () => {
-      await refetch();
+      navigate("/notes");
     },
     onError: () => {
       addToast("Something went wrong", { appearance: "error" });

@@ -49,6 +49,7 @@ const NotesPage = () => {
             onChange={(e) => handleDebouncedValue(e.target.value)}
             value={value}
             placeholder="Title..."
+            id="title-filter-id"
           />,
           <Button
             key={1}
