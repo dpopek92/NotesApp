@@ -6,7 +6,7 @@ const Select = styled(Form.Select)`
   width: 100px;
 `;
 
-const _pageNumbers = [5, 10, 25, 50, 100];
+const perPage = [5, 10, 25, 50, 100];
 
 interface IProps {
   pageNumber: number;
@@ -26,15 +26,9 @@ const CustomPagination: React.FC<IProps> = ({
   const [pageItems, setPageItems] = useState<number[]>([1]);
 
   useEffect(() => {
-    const newPageItems = [
-      pageNumber - 3,
-      pageNumber - 2,
-      pageNumber - 1,
-      pageNumber,
-      pageNumber + 1,
-      pageNumber + 2,
-      pageNumber + 3,
-    ].filter((item) => item > 0 && item <= totalPages);
+    const newPageItems = [pageNumber - 1, pageNumber, pageNumber + 1].filter(
+      (item) => item > 0 && item <= totalPages
+    );
     setPageItems(newPageItems);
   }, [pageNumber, totalPages]);
 
@@ -69,9 +63,8 @@ const CustomPagination: React.FC<IProps> = ({
         value={itemsPerPage}
         onChange={(e: any) => handleItemsPerPage(+e.target.value)}
         size="sm"
-        title="Elementów na stronę"
       >
-        {_pageNumbers.map((value) => (
+        {perPage.map((value) => (
           <option value={value} key={value}>
             {value}
           </option>

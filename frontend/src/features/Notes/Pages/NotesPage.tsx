@@ -1,3 +1,4 @@
+import CustomPagination from "common/components/CustomPagination/CustomPagination";
 import Empty from "common/components/Empty/Empty";
 import LoadingSpinner from "common/components/LoadingSpinner/LoadingSpinner";
 import PageHeader from "common/components/PageHeader/PageHeader";
@@ -12,9 +13,15 @@ import useNotes from "../hooks/useNotes";
 
 const NotesPage = () => {
   const navigate = useNavigate();
-  const { itemsPerPage, pageNumber, setTotalItems, Pagination } = usePagination(
-    { pageNumber: 1, itemsPerPage: 5 }
-  );
+  const {
+    itemsPerPage,
+    pageNumber,
+    totalPages,
+    setTotalItems,
+    handlePagination,
+    handleItemsPerPage,
+  } = usePagination({ pageNumber: 1, itemsPerPage: 5 });
+
   const { value, debouncedValue, handleDebouncedValue } =
     useControledDebounce();
   const { notes, totalItems, isLoading, isError, redirectToNote } = useNotes({
@@ -38,7 +45,7 @@ const NotesPage = () => {
       </Alert>
     );
   return (
-    <Container className="mt-3">
+    <Container className="my-3">
       {isLoading && <LoadingSpinner />}
       <PageHeader
         title="Notes page"
@@ -74,7 +81,13 @@ const NotesPage = () => {
             <NotesList notes={notes} />
           </NoteContext.Provider>
           <div className="d-flex justify-content-end mt-3">
-            <Pagination />
+            <CustomPagination
+              pageNumber={pageNumber}
+              itemsPerPage={itemsPerPage}
+              totalPages={totalPages}
+              handleItemsPerPage={handleItemsPerPage}
+              handlePagination={handlePagination}
+            />
           </div>
         </>
       )}

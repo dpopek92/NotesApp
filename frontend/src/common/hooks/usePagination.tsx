@@ -1,4 +1,3 @@
-import CustomPagination from "common/components/CustomPagination/CustomPagination";
 import { ISearchParams } from "common/interfaces/Search.interface";
 import { toNumber } from "lodash";
 import { useEffect, useState } from "react";
@@ -49,16 +48,6 @@ const usePagination = (init: ISearchParams) => {
     setSearchParams(searchParams);
   };
 
-  const Pagination = () => (
-    <CustomPagination
-      pageNumber={pageNumber}
-      itemsPerPage={itemsPerPage}
-      totalPages={totalPages}
-      handleItemsPerPage={handleItemsPerPage}
-      handlePagination={handlePagination}
-    />
-  );
-
   return {
     itemsPerPage,
     pageNumber,
@@ -67,7 +56,6 @@ const usePagination = (init: ISearchParams) => {
     setTotalItems,
     handlePagination,
     handleItemsPerPage,
-    Pagination,
   };
 };
 
