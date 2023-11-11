@@ -21,7 +21,11 @@ const SpinnerWrapper = styled.div`
 const LoadingSpinner = () => (
   <Wrapper>
     <SpinnerWrapper>
-      <Spinner animation="grow" variant="primary" />
+      <Spinner
+        animation="grow"
+        variant="primary"
+        data-testid="spinner-test-id"
+      />
     </SpinnerWrapper>
   </Wrapper>
 );

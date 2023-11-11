@@ -18,7 +18,12 @@ const ModalTemplate: React.FC<IProps> = ({
   ...modalProps
 }) => {
   return (
-    <Modal show onHide={closeModal} {...modalProps}>
+    <Modal
+      show
+      onHide={closeModal}
+      {...modalProps}
+      data-testid="modal-template-test-id"
+    >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>

@@ -9,7 +9,7 @@ interface IProps {
 
 const NotesList: React.FC<IProps> = ({ notes }) => {
   return (
-    <Row className="justify-content-around ">
+    <Row className="justify-content-around" data-testid="notes-list-test-id">
       {notes?.map((note) => (
         <Col md={4} key={note._id}>
           <Note note={note} />

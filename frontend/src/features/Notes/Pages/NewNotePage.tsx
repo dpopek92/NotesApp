@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { INewNote, notesApi } from "../api/notes.api";
-import NoteForm from "../components/NoteFormModal/NoteForm";
+import NoteForm from "../components/NoteForm/NoteForm";
 
 const NewNotePage = () => {
   const navigate = useNavigate();

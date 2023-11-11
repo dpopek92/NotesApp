@@ -2,7 +2,7 @@ import LoadingSpinner from "common/components/LoadingSpinner/LoadingSpinner";
 import PageHeader from "common/components/PageHeader/PageHeader";
 import { Alert, Container } from "react-bootstrap";
 import { useParams } from "react-router";
-import NoteForm from "../components/NoteFormModal/NoteForm";
+import NoteForm from "../components/NoteForm/NoteForm";
 import useNote from "../hooks/useNote";
 
 const EditNotePage = () => {

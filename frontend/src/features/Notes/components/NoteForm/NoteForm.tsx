@@ -8,18 +8,18 @@ export const schema = yup.object({
   title: yup
     .string()
     .typeError("Title must be a text")
-    .required("Title is requires")
+    .required("Title is required")
     .min(1, "Min. 1 character")
     .max(50, "Max. 50 characters"),
   content: yup
     .string()
     .typeError("Note must be a text")
-    .required("Note is requires")
+    .required("Note is required")
     .min(1, "Min. 1 character")
     .max(500, "Max. 500 characters"),
 });
 
-interface INoteData extends Pick<INote, "title" | "content"> {}
+export interface INoteData extends Pick<INote, "title" | "content"> {}
 interface IProps {
   initData?: INoteData;
   handleSubmit: (data: INoteData) => Promise<any>;
@@ -35,7 +35,12 @@ const NoteForm: React.FC<IProps> = ({ initData, handleSubmit }) => {
   });
 
   return (
-    <Form onSubmit={formik.handleSubmit} noValidate id="note-form-id">
+    <Form
+      onSubmit={formik.handleSubmit}
+      noValidate
+      id="note-form-id"
+      data-testid="note-form-test-id"
+    >
       <Form.Group controlId="note-form-title" className="mb-3">
         <Form.Label>Title</Form.Label>
         <Form.Control

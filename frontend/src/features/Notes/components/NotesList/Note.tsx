@@ -27,7 +27,7 @@ const Note: React.FC<IProps> = ({ note }) => {
   const { goToNote } = useNoteContext();
 
   return (
-    <Card className="mb-3">
+    <Card className="mb-3" data-testid="note-test-id">
       <Card.Header>
         <Title>{note.title}</Title>
         <Subtitle>{dayjs(note.createdAt).format("DD.MM.YYYY, HH:mm")}</Subtitle>

@@ -5,7 +5,7 @@ import ModalTemplate, {
 
 interface IProps extends IModalTemplateProps {
   confirmationText: string;
-  onOk: () => Promise<any>;
+  onOk: () => Promise<any> | void;
 }
 
 const ConfirmationModal: React.FC<IProps> = ({

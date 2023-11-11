@@ -21,7 +21,7 @@ interface IProps {
 
 const PageHeader: React.FC<IProps> = ({ title, subtitle = "", menu = [] }) => {
   return (
-    <div>
+    <div data-testid="page-header-test-id">
       <Wrapper>
         <h1>{title}</h1>
         <Stack direction="horizontal">{menu.map((item) => item)}</Stack>

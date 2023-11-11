@@ -80,6 +80,7 @@ const NotesPage = () => {
           >
             <NotesList notes={notes} />
           </NoteContext.Provider>
+
           <div className="d-flex justify-content-end mt-3">
             <CustomPagination
               pageNumber={pageNumber}
