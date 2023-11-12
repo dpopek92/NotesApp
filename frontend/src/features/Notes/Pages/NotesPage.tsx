@@ -36,7 +36,7 @@ const NotesPage = () => {
     }
   }, [totalItems]);
 
-  const redirectToNewNote = () => navigate("/new-note");
+  const redirectToNewNote = () => navigate("/notes/new");
 
   if (isError)
     return (
@@ -55,7 +55,7 @@ const NotesPage = () => {
             size="sm"
             onChange={(e) => handleDebouncedValue(e.target.value)}
             value={value}
-            placeholder="Title..."
+            placeholder="Search"
           />,
           <Button
             key={1}

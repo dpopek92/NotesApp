@@ -13,7 +13,7 @@ const Routing = () => {
       <Navigation />
       <Routes>
         <Route path="/notes" element={<NotesPage />} />
-        <Route path="/new-note" element={<NewNotePage />} />
+        <Route path="/notes/new" element={<NewNotePage />} />
         <Route path="/notes/:id" element={<NotePage />} />
         <Route path="/notes/:id/edit" element={<EditNotePage />} />
         <Route path="*" element={<Navigate to="/notes" />} />

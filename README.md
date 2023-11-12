@@ -1,27 +1,28 @@
 ## Description
 
 A simple note management application created in the technology stack:
-  - React.js
-  - NestJS
-  - MongoDB
-    
+
+- React.js
+- NestJS
+- MongoDB
+
 with additional libraries such as, for example:
-  - Bootstrap
-  - ReactQuery
-  - formik
-  - yup
-    
+
+- Bootstrap
+- ReactQuery
+- formik
+- yup
 
 ## Installation
 
 ```bash
 # from main dir
 
+# installing dependencies to run the project
+$ npm i
+
 # installing dependencies for frontend & backend
 $ npm run postinstall
-
-# installing dependencies for run the project
-$ npm i
 ```
 
 ## Running the app
