@@ -10,6 +10,7 @@ jest.mock("../hooks/useNote", () => ({
 
 jest.mock("react-router", () => ({
   useParams: () => ({ id: "1" }),
+  useLocation: () => ({}),
 }));
 
 describe("EditNotePage", () => {

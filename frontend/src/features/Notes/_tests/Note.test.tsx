@@ -42,6 +42,6 @@ describe("Note", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Show details" }));
 
-    expect(mockGoToNote).toHaveBeenCalledWith(mockNote._id);
+    expect(mockGoToNote).toHaveBeenCalledWith(mockNote);
   });
 });

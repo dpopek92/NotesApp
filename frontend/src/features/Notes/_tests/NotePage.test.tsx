@@ -11,6 +11,7 @@ jest.mock("../hooks/useNote", () => ({
 jest.mock("react-router", () => ({
   useParams: () => ({ id: "1" }),
   useNavigate: () => jest.fn(),
+  useLocation: () => ({}),
 }));
 
 describe("NotePage", () => {
