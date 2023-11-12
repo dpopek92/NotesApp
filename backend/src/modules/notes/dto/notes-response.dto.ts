@@ -1,5 +1,5 @@
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
-import { SearchParamsDto } from 'src/common/dto/search-params.dto';
+import { SearchParamsDto } from '../../../common/dto/search-params.dto';
 import { NoteResponseDto } from './note-response.dto';
 
 export class NotesResponseDto {
