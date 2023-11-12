@@ -20,7 +20,7 @@ with additional libraries such as, for example:
 # installing dependencies for frontend & backend
 $ npm run postinstall
 
-# installing dependencies to run the project
+# installing dependencies for run the project
 $ npm i
 ```
 
@@ -29,7 +29,7 @@ $ npm i
 ```bash
 # from main dir
 
-# run project
+# run project (frontend & backend)
 $ npm run start
 ```
 
