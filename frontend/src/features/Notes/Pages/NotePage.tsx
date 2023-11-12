@@ -4,14 +4,18 @@ import PageHeader from "common/components/PageHeader/PageHeader";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { Alert, Button, Container } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import useNote from "../hooks/useNote";
+import { INote } from "../interfaces/Notes.interface";
 
 const NotePage = () => {
   const { id } = useParams();
+  const { state: initNote }: { state: INote | undefined } = useLocation();
   const navigate = useNavigate();
-  const { note, isLoading, isError, removeNote, redirectToEditNote } =
-    useNote(id);
+  const { note, isLoading, isError, removeNote, redirectToEditNote } = useNote(
+    id,
+    initNote
+  );
 
   const [confirmRemoveNoteModal, setConfirmRemoveNoteModal] =
     useState<boolean>(false);

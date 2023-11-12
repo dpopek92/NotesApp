@@ -40,7 +40,7 @@ const Note: React.FC<IProps> = ({ note }) => {
           <Button
             size="sm"
             variant="outline-success"
-            onClick={() => goToNote(note._id)}
+            onClick={() => goToNote(note)}
           >
             Show details
           </Button>

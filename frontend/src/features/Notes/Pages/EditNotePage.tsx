@@ -1,13 +1,15 @@
 import LoadingSpinner from "common/components/LoadingSpinner/LoadingSpinner";
 import PageHeader from "common/components/PageHeader/PageHeader";
 import { Alert, Container } from "react-bootstrap";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import NoteForm from "../components/NoteForm/NoteForm";
 import useNote from "../hooks/useNote";
+import { INote } from "../interfaces/Notes.interface";
 
 const EditNotePage = () => {
   const { id } = useParams();
-  const { note, isLoading, isError, updateNote } = useNote(id);
+  const { state: initNote }: { state: INote | undefined } = useLocation();
+  const { note, isLoading, isError, updateNote } = useNote(id, initNote);
 
   if (isError)
     return (

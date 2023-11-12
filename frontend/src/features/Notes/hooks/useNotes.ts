@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { ISearchNotes, notesApi } from "../api/notes.api";
+import { INote } from "../interfaces/Notes.interface";
 
 // Custom hook for managing notes data
 const useNotes = (searchQuery: ISearchNotes) => {
@@ -20,7 +21,8 @@ const useNotes = (searchQuery: ISearchNotes) => {
   const notes = data?.data.content;
   const totalItems = data?.data.totalItems;
   const isLoading = isNotesLoading;
-  const redirectToNote = (id: string) => navigate(`/notes/${id}`);
+  const redirectToNote = (note: INote) =>
+    navigate(`/notes/${note._id}`, { state: note });
 
   return {
     notes,

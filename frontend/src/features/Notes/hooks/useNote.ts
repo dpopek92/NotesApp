@@ -2,9 +2,10 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { IUpdateNote, notesApi } from "../api/notes.api";
+import { INote } from "../interfaces/Notes.interface";
 
 // Custom hook for managing note data
-const useNote = (id?: string) => {
+const useNote = (id: string | undefined, initNote?: INote) => {
   const navigate = useNavigate();
   const { addToast } = useToasts();
 
@@ -51,9 +52,10 @@ const useNote = (id?: string) => {
     },
   });
 
-  const note = data?.data;
+  const note = data?.data || initNote;
   const isLoading = isNoteLoading || isUpdating || isRemoving;
-  const redirectToEditNote = () => navigate(`/notes/${id}/edit`);
+  const redirectToEditNote = () =>
+    navigate(`/notes/${id}/edit`, { state: note });
 
   return {
     note,
