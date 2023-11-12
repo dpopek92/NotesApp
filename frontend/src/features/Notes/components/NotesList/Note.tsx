@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import { formatDate } from "common/utils/dates.utils";
 import { useNoteContext } from "features/Notes/context/noteContext.context";
 import { INote } from "features/Notes/interfaces/Notes.interface";
 import { truncate } from "lodash";
@@ -25,15 +25,16 @@ interface IProps {
 
 const Note: React.FC<IProps> = ({ note }) => {
   const { goToNote } = useNoteContext();
+  const { title, content, createdAt } = note;
 
   return (
     <Card className="mb-3" data-testid="note-test-id">
       <Card.Header>
-        <Title>{note.title}</Title>
-        <Subtitle>{dayjs(note.createdAt).format("DD.MM.YYYY, HH:mm")}</Subtitle>
+        <Title>{title}</Title>
+        <Subtitle>{formatDate(createdAt)}</Subtitle>
       </Card.Header>
       <Body>
-        <Card.Text>{truncate(note.content, { length: 100 })}</Card.Text>
+        <Card.Text>{truncate(content, { length: 100 })}</Card.Text>
       </Body>
       <Card.Footer>
         <div className="d-flex justify-content-end ">

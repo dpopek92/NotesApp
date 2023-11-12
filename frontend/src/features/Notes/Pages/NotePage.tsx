@@ -1,7 +1,7 @@
 import ConfirmationModal from "common/components/ConfirmationModal/Confirmation.modal";
 import LoadingSpinner from "common/components/LoadingSpinner/LoadingSpinner";
 import PageHeader from "common/components/PageHeader/PageHeader";
-import dayjs from "dayjs";
+import { formatDate } from "common/utils/dates.utils";
 import { useState } from "react";
 import { Alert, Button, Container } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router";
@@ -37,7 +37,7 @@ const NotePage = () => {
 
       <PageHeader
         title={note?.title || "Note"}
-        subtitle={note ? dayjs(note.createdAt).format("DD.MM.YYYY, HH:mm") : ""}
+        subtitle={note ? formatDate(note.createdAt) : ""}
         menu={[
           <Button
             key={0}
